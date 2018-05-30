@@ -4,12 +4,21 @@ MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt
 
 RUN apt-get update && apt-get -y install \
 	bash \
+	bzip2 \
+	git \
 	python3 \
 	wget
 
+WORKDIR /NGStools
 
-WORKDIR /NGStools/skesa
+# INSTALL MINICONDA
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN chmod +x Miniconda3-latest-Linux-x86_64.sh
+RUN ./Miniconda3-latest-Linux-x86_64.sh -b -p /NGStools/miniconda
+ENV PATH="/NGStools/miniconda/bin:$PATH"
+# Configure channels for bioconda
+RUN conda update -y -n base conda && conda config --add channels conda-forge && conda config --add channels defaults &&  conda config --add channels bioconda
 
-RUN wget ftp://ftp.ncbi.nlm.nih.gov/pub/agarwala/skesa/skesa.static && mv skesa.static skesa && chmod +x skesa
+RUN conda install -y skesa
 
-ENV PATH="/NGStools/skesa/:$PATH"
+WORKDIR /data/
