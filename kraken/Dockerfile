@@ -1,28 +1,32 @@
 FROM ubuntu:16.04
-MAINTAINER Miguel Machado <mpmachado@medicina.ulisboa.pt>
+MAINTAINER I Mendes <cimendes@medicina.ulisboa.pt>
 
 WORKDIR /NGStools/
 
-# Dependencies
-RUN apt-get update && apt-get upgrade -y perl && apt-get install -y git make sed wget g++ rsync locales && locale-gen --purge en_US.UTF-8 && DEBIAN_FRONTEND="noninteractive" dpkg-reconfigure locales && update-locale LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
-# RUN apt-get install -y git make sed wget g++ rsync locales && locale-gen en_GB.UTF-8 && update-locale
-# ENV LANG="en_GB.UTF-8"
-# RUN apt-get upgrade -y perl
-# RUN apt-get install -y git make sed wget g++ rsync
+# INSTALL DEPENDENCIES
+RUN apt-get update && apt-get -y install \
+	bzip2 \
+	gzip \
+	python \
+	python3 \
+	wget
 
-# Jellyfish v1.1.10-1
-RUN wget https://launchpad.net/ubuntu/+archive/primary/+files/jellyfish_1.1.10.orig.tar.gz && tar xf jellyfish_1.1.10.orig.tar.gz && rm jellyfish_1.1.10.orig.tar.gz && cd /NGStools/jellyfish-1.1.10/ && ./configure && make && make install && rm -r /NGStools/jellyfish-1.1.10/
+WORKDIR /NGStools
 
-# Kraken
-RUN cd /NGStools/ && git clone https://github.com/DerrickWood/kraken.git && mkdir /NGStools/kraken/kraken_instalation/ && cd /NGStools/kraken/ && ./install_kraken.sh /NGStools/kraken/kraken_instalation/
+# INSTALL MINICONDA
+RUN wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+RUN chmod +x Miniconda2-latest-Linux-x86_64.sh
+RUN ./Miniconda2-latest-Linux-x86_64.sh -b -p /NGStools/miniconda
+ENV PATH="/NGStools/miniconda/bin:$PATH"
+# Configure channels for bioconda
+RUN conda config --add channels defaults && conda config --add channels conda-forge && conda config --add channels bioconda
 
-# minikraken DB
-RUN mkdir /kraken_db/ && cd /kraken_db/ && wget https://ccb.jhu.edu/software/kraken/dl/minikraken.tgz && tar xf minikraken.tgz && rm minikraken.tgz
+# INSTALL kraken
+RUN conda install -c bioconda kraken
 
-ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}" PATH="/NGStools/kraken/kraken_instalation:${PATH}" KRAKEN_DB_PATH="/kraken_db:${KRAKEN_DB_PATH}"
+# minikraken DB 4GB RefSeq Oct. 18, 2017
+RUN mkdir /kraken_db/ && cd /kraken_db/ && wget https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_4GB.tgz && tar xf minikraken_20171019_4GB.tgz && rm minikraken_20171019_4GB.tgz
 
-# Clean
-# RUN apt-get remove -y git make locales && apt-get autoclean -y
-RUN apt-get remove -y git make locales && apt-get autoclean -y
+ENV LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}" KRAKEN_DB_PATH="/kraken_db:${KRAKEN_DB_PATH}"
 
 WORKDIR /data/
