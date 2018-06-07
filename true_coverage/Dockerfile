@@ -1,5 +1,5 @@
 # DOCKERFILE for true coverage
-FROM ummidock/rematch:3.2.0-2
+FROM flowcraft/rematch:3.3-1
 MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt
 
 WORKDIR /NGStools
