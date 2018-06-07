@@ -7,16 +7,44 @@ WORKDIR /NGStools/
 RUN apt-get update && apt-get -y install \
 	bzip2 \
 	gzip \
+	wget \
 	python3 \
-	wget
+	gcc
+
+# INSTALL PERL AND CPAN
+RUN apt-get -y install perl \
+    build-essential \
+    libxi-dev \
+    libxmu-dev \
+    freeglut3-dev \
+    libgsl0-dev \
+    libnetpbm10-dev \
+    libplplot-dev \
+    pgplot5 \
+    gfortran \
+    curl \
+    libcairo2-dev
+
+RUN curl -L http://cpanmin.us | perl - App::cpanminus
+
+# INSTALL PERL MODULES - PRINSEQ LITE
+RUN cpanm  Getopt::Long \
+    Pod::Usage \
+    File::Temp \
+    Fcntl \
+    Digest::MD5 \
+    Cwd \
+    List::Util
 
 # INSTALL MINICONDA
-RUN wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
-RUN chmod +x Miniconda2-latest-Linux-x86_64.sh
-RUN ./Miniconda2-latest-Linux-x86_64.sh -b -p /NGStools/miniconda
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN chmod +x Miniconda3-latest-Linux-x86_64.sh
+RUN ./Miniconda3-latest-Linux-x86_64.sh -b -p /NGStools/miniconda
 ENV PATH="/NGStools/miniconda/bin:$PATH"
 # Configure channels for bioconda
 RUN conda config --add channels defaults && conda config --add channels conda-forge && conda config --add channels bioconda
 
 # INSTALL PRINSEQ STANDALONE LITE
 RUN conda install -c bioconda prinseq
+
+WORKDIR /data
