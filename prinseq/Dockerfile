@@ -28,12 +28,12 @@ RUN apt-get -y install perl \
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
 
 # INSTALL PERL MODULES - PRINSEQ LITE
+RUN cpanm --force Cwd
 RUN cpanm  Getopt::Long \
     Pod::Usage \
     File::Temp \
     Fcntl \
     Digest::MD5 \
-    Cwd \
     List::Util
 
 # INSTALL MINICONDA
