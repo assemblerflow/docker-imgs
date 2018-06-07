@@ -11,17 +11,6 @@ RUN apt-get update && apt-get -y install \
 	python3 \
 	gcc
 
-# INSTALL MINICONDA
-RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN chmod +x Miniconda3-latest-Linux-x86_64.sh
-RUN ./Miniconda3-latest-Linux-x86_64.sh -b -p /NGStools/miniconda
-ENV PATH="/NGStools/miniconda/bin:$PATH"
-# Configure channels for bioconda
-RUN conda config --add channels defaults && conda config --add channels conda-forge && conda config --add channels bioconda
-
-#INSTALL PERL MODULE DEPEDENCIES
-RUN conda install perl-pathtools
-
 # INSTALL PERL AND CPAN
 RUN apt-get -y install perl \
     build-essential \
@@ -36,17 +25,13 @@ RUN apt-get -y install perl \
     curl \
     libcairo2-dev
 
-RUN curl -L http://cpanmin.us | perl - App::cpanminus
-
-# INSTALL PERL MODULES - PRINSEQ LITE
-RUN cpanm  Getopt::Long \
-    Pod::Usage \
-    File::Temp \
-    Fcntl \
-    Digest::MD5 \
-    Cwd \
-    List::Util
-
+# INSTALL MINICONDA
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN chmod +x Miniconda3-latest-Linux-x86_64.sh
+RUN ./Miniconda3-latest-Linux-x86_64.sh -b -p /NGStools/miniconda
+ENV PATH="/NGStools/miniconda/bin:$PATH"
+# Configure channels for bioconda
+RUN conda config --add channels defaults && conda config --add channels conda-forge && conda config --add channels bioconda
 
 # INSTALL PRINSEQ STANDALONE LITE
 RUN conda install -c bioconda prinseq
