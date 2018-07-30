@@ -1,0 +1,5 @@
+blast_path = /NGStools/miniconda/bin
+bwa_path = /NGStools/miniconda/bin
+samtools_path = /NGStools/miniconda/bin
+picard = picard
+freebayse_path = /NGStools/miniconda/bin
