@@ -4,6 +4,7 @@ MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt
 
 RUN apt-get update && apt-get -y install \
 	bzip2 \
+	pigz \
 	gzip \
 	wget
 # git needs to be present to allow DB update
