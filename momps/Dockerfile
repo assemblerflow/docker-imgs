@@ -23,7 +23,7 @@ RUN conda update -y -n base conda && conda config --add channels conda-forge && 
 
 RUN conda install -y blast bwa samtools picard freebayes perl ncurses
 
-RUN git clone https://github.com/bioinfo-core-BGU/mompS.git
+RUN git clone https://github.com/ODiogoSilva/mompS.git
 RUN chmod +x /NGStools/mompS/momps.pl
 ENV PATH="/NGStools/mompS:$PATH"
 
