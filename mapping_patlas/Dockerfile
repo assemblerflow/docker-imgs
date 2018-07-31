@@ -1,12 +1,10 @@
-# DOCKERFILE to run mash_screen for pATLAS
-#FROM ummidock/assemblerflow_base:1.0.0
+# DOCKERFILE to run mapping for pATLAS
 FROM ubuntu:16.04
 MAINTAINER Tiago F. Jesus, tiagojesus@medicina.ulisboa.pt
 
 # INSTALL DEPENDENCIES
 RUN apt-get update && apt-get -y install \
     python3 \
-    python \
     wget \
     zip \
     bzip2 \
@@ -41,10 +39,10 @@ ENV PATH="/ngstools/bin/samtools-1.7:$PATH"
 
 WORKDIR /ngstools/data/
 
-RUN wget https://github.com/tiagofilipe12/pATLASflow/releases/download/1.4.1/indexes.tar.gz
+RUN wget https://github.com/tiagofilipe12/pATLASflow/releases/download/1.5.2/indexes.tar.gz
 
 RUN tar xvzf indexes.tar.gz
 
 # Fetches json with lenghts used to generate -k parameter for bowtie as well as
 # plasmid lenghts
-RUN wget https://github.com/tiagofilipe12/pATLASflow/releases/download/1.4.1/length_v1_4_1_11_06_2018.json
+RUN wget https://github.com/tiagofilipe12/pATLASflow/releases/download/1.5.2/length_plasmid_db.json
