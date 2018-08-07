@@ -1,11 +1,11 @@
-# DOCKERFILE to run mash_screen for pATLAS
-#FROM ummidock/assemblerflow_base:1.0.0
+# DOCKERFILE to run mapping for pATLAS
 FROM ubuntu:16.04
 MAINTAINER Tiago F. Jesus, tiagojesus@medicina.ulisboa.pt
 
 # INSTALL DEPENDENCIES
 RUN apt-get update && apt-get -y install \
     python3 \
+    python3-pip \
     wget \
     zip \
     bzip2 \
@@ -15,6 +15,9 @@ RUN apt-get update && apt-get -y install \
     liblzma-dev
 
 WORKDIR /ngstools/bin/
+
+# install pympler
+RUN pip3 install pympler
 
 # Download and install bowtie2
 
@@ -40,10 +43,10 @@ ENV PATH="/ngstools/bin/samtools-1.7:$PATH"
 
 WORKDIR /ngstools/data/
 
-RUN wget https://github.com/tiagofilipe12/PlasmidCoverage/releases/download/1.1.2/indexes.tar.gz
+RUN wget https://github.com/tiagofilipe12/pATLASflow/releases/download/1.5.2/indexes.tar.gz
 
 RUN tar xvzf indexes.tar.gz
 
 # Fetches json with lenghts used to generate -k parameter for bowtie as well as
 # plasmid lenghts
-RUN wget https://github.com/tiagofilipe12/PlasmidCoverage/releases/download/1.1.2/reads_sample_result_length.json
+RUN wget https://github.com/tiagofilipe12/pATLASflow/releases/download/1.5.2/length_plasmid_db.json
