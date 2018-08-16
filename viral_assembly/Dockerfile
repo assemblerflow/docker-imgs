@@ -14,7 +14,7 @@ RUN wget https://github.com/voutcn/megahit/releases/download/v1.1.3/megahit_v1.1
 RUN tar -xzf megahit_v1.1.3_LINUX_CPUONLY_x86_64-bin.tar.gz && rm megahit_v1.1.3_LINUX_CPUONLY_x86_64-bin.tar.gz
 RUN mv megahit_v1.1.3_LINUX_CPUONLY_x86_64-bin megahit
 
-ENV PATH="/megahit/:$PATH"
+ENV PATH="/NGStools/megahit:$PATH"
 
 
 
