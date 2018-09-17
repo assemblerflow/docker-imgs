@@ -4,7 +4,8 @@ MAINTAINER Tiago F. Jesus, tiagojesus@medicina.ulisboa.pt
 # INSTALL DEPENDENCIES
 RUN apt-get update && apt-get -y install \
     wget \
-    zip
+    zip \
+    libgomp1
 
 WORKDIR /ngstools/bin/fast_ani
 
