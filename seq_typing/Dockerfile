@@ -8,7 +8,7 @@ RUN apt-get update && apt-get -y install \
 WORKDIR /NGStools
 
 RUN git clone https://github.com/B-UMMI/seq_typing.git
-RUN pip3 install future
+RUN pip3 install future biopython
 ENV PATH="/NGStools/seq_typing:$PATH"
 
 RUN chmod -R o+wr /NGStools/
