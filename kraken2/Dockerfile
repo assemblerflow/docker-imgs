@@ -24,9 +24,11 @@ RUN conda config --add channels defaults && conda config --add channels conda-fo
 # INSTALL kraken
 RUN conda install -c bioconda kraken2
 
-# minikraken DB kraken2 - refseq bacteria, archaea, and viral libraries
-RUN mkdir /minikraken2_v1_8GB/ && cd /minikraken2_v1_8GB/ && wget https://ccb.jhu.edu/software/kraken2/dl/minikraken2_v1_8GB.tgz && tar xf minikraken2_v1_8GB.tgz && rm minikraken2_v1_8GB.tgz
+WORKDIR /kraken_db
 
-ENV KRAKEN2_DB_PATH="/minikraken2_v1_8GB:${KRAKEN2_DB_PATH}"
+# minikraken DB kraken2 - refseq bacteria, archaea, and viral libraries
+RUN mkdir minikraken2_v1_8GB/ && cd minikraken2_v1_8GB/ && wget https://ccb.jhu.edu/software/kraken2/dl/minikraken2_v1_8GB.tgz && tar xf minikraken2_v1_8GB.tgz && rm minikraken2_v1_8GB.tgz
+
+ENV KRAKEN2_DB_PATH="/kraken_db:${KRAKEN2_DB_PATH}"
 
 WORKDIR /data/
