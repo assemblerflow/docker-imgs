@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 	libjson-perl \
 	libfile-slurp-perl \
 	file \
+	git \
     python3
 
 RUN git clone https://github.com/tseemann/mlst.git
