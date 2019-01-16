@@ -4,7 +4,7 @@ MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt
 
 WORKDIR /NGStools
 
-RUN git clone https://github.com/B-UMMI/INNUca.git
+RUN git clone https://github.com/B-UMMI/INNUca.git && \
 	mkdir true_coverage && \
 	mv INNUca/modules/trueCoverage_rematch true_coverage/data && \
 	mv INNUca/modules/trueCoverage_rematch.py true_coverage/ && \
