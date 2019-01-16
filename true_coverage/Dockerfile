@@ -1,11 +1,10 @@
 # DOCKERFILE for true coverage
-FROM flowcraft/rematch:3.3-1
+FROM flowcraft/rematch:4.0.1-1
 MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt
 
 WORKDIR /NGStools
 
-RUN git clone https://github.com/B-UMMI/INNUca.git && cd INNUca && \
-	git checkout tags/v3.2 && cd .. && \
+RUN git clone https://github.com/B-UMMI/INNUca.git
 	mkdir true_coverage && \
 	mv INNUca/modules/trueCoverage_rematch true_coverage/data && \
 	mv INNUca/modules/trueCoverage_rematch.py true_coverage/ && \
