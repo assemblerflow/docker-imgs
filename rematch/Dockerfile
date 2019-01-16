@@ -1,39 +1,31 @@
 # DOCKERFILE for rematch https://github.com/B-UMMI/ReMatCh
 FROM ubuntu:16.04
-MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt
+MAINTAINER Inês Mendes, cimendes@medicina.ulisboa.pt
 
 RUN apt-get update && apt-get -y install \
-	bc \
-	bzip2 \
-	gcc \
 	git \
-	gzip \
-	make \
 	wget  \
-	unzip \
 	python \
-	parallel \
-	zlib1g-dev
+	python3 \
+	python3-pip \
+	parallel
+
+RUN pip3 install setuptools
 
 WORKDIR /NGStools
 
-RUN wget https://sourceforge.net/projects/samtools/files/samtools/1.4.1/samtools-1.4.1.tar.bz2
-RUN mkdir samtools && tar jxf samtools-1.4.1.tar.bz2 -C samtools --strip-components=1
+# INSTALL REMATCH
 
-WORKDIR /NGStools/samtools/
+RUN git clone https://github.com/B-UMMI/ReMatCh.git && \
+    cd ReMatCh && \
+    python3 setup.py install
 
-RUN ./configure --without-curses --disable-bz2 --disable-lzma
-RUN make
-ENV PATH="/NGStools/samtools:$PATH"
+ENV PATH="/NGStools/ReMatCh/src/bcftools-1.3.1/bin:$PATH"
+ENV PATH="/NGStools/ReMatCh/src/bowtie2-2.2.9"$PATH
+ENV PATH="/NGStools/ReMatCh/src/samtools-1.3.1/bin"$PATH
 
-WORKDIR /NGStools/
+WORKDIR /NGStools
 
-RUN rm -rf samtools-1.4.1.tar.bz2 
-
-RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.2.9/bowtie2-2.2.9-linux-x86_64.zip && unzip bowtie2-2.2.9-linux-x86_64.zip
-ENV PATH="/NGStools/bowtie2-2.2.9:$PATH"
-
-RUN git clone https://github.com/B-UMMI/ReMatCh.git
 ENV PATH="/NGStools/ReMatCh:$PATH"
 
 
