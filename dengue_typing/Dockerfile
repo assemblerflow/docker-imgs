@@ -13,19 +13,10 @@ RUN wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.6.0/ncbi-blast-2.
 
 ENV PATH="/NGStools/ncbi-blast-2.6.0+/bin:$PATH"
 
-RUN git clone https://github.com/B-UMMI/seq_typing.git -b assemblies
+RUN git clone https://github.com/B-UMMI/seq_typing.git
 RUN pip3 install future
 ENV PATH="/NGStools/seq_typing:$PATH"
 
 RUN chmod -R o+wr /NGStools/
-
-# Reference File
-
-WORKDIR /dengue_DB
-
-RUN wget https://github.com/assemblerflow/docker-imgs/files/2306260/GenotypesDENV_14-05-18.problematic_sequences_corrected.fasta.corrected.fasta.iupac_removed.fasta.zip
-RUN unzip GenotypesDENV_14-05-18.problematic_sequences_corrected.fasta.corrected.fasta.iupac_removed.fasta.zip
-
-RUN seq_typing.py blast -f GenotypesDENV_14-05-18.problematic_sequences_corrected.fasta.corrected.fasta.iupac_removed.fasta -t nucl -o blast_db/
 
 WORKDIR /data/
