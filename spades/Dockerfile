@@ -14,4 +14,4 @@ WORKDIR /NGStools
 RUN wget http://cab.spbu.ru/files/release3.12.0/SPAdes-3.12.0-Linux.tar.gz && tar -xf SPAdes-3.12.0-Linux.tar.gz
 
 
-ENV PATH="/NGStools/SPAdes-3.13.0-Linux/bin:$PATH"
+ENV PATH="/NGStools/SPAdes-3.12.0-Linux/bin:$PATH"
