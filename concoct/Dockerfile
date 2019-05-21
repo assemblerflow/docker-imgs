@@ -21,6 +21,9 @@ ENV PATH="/NGStools/miniconda/bin:$PATH"
 RUN conda config --add channels defaults && conda config --add channels conda-forge && conda config --add channels bioconda
 
 # INSTALL DEPENDENCIES
+# Bedtools2.17
+RUN apt-get install -qq bedtools
+
 # Samtools 0.1.19
 RUN apt-get install -qq samtools
 
