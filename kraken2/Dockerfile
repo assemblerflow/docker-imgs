@@ -11,6 +11,8 @@ RUN apt-get update && apt-get -y install \
 	python3 \
 	wget
 
+RUN apt-get -y install rsync
+
 WORKDIR /NGStools
 
 # INSTALL MINICONDA
@@ -19,7 +21,8 @@ RUN chmod +x Miniconda2-latest-Linux-x86_64.sh
 RUN ./Miniconda2-latest-Linux-x86_64.sh -b -p /NGStools/miniconda
 ENV PATH="/NGStools/miniconda/bin:$PATH"
 # Configure channels for bioconda
-RUN conda config --add channels defaults && conda config --add channels conda-forge && conda config --add channels bioconda
+RUN conda config --add channels defaults && conda config --add channels conda-forge && \
+    conda config --add channels bioconda
 
 # INSTALL kraken
 RUN conda install -c bioconda kraken2
@@ -27,7 +30,9 @@ RUN conda install -c bioconda kraken2
 WORKDIR /kraken_db
 
 # minikraken DB kraken2 - refseq bacteria, archaea, and viral libraries
-RUN mkdir minikraken2_v1_8GB/ && cd minikraken2_v1_8GB/ && wget https://ccb.jhu.edu/software/kraken2/dl/minikraken2_v1_8GB.tgz && tar xf minikraken2_v1_8GB.tgz && rm minikraken2_v1_8GB.tgz
+RUN mkdir minikraken2_v1_8GB/ && cd minikraken2_v1_8GB/ && \
+    wget ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v1_8GB_201904_UPDATE.tgz && \
+    tar xf minikraken2_v1_8GB_201904_UPDATE.tgz && rm minikraken2_v1_8GB_201904_UPDATE.tgz
 
 ENV KRAKEN2_DB_PATH="/kraken_db:${KRAKEN2_DB_PATH}"
 
