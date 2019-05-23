@@ -30,8 +30,7 @@ RUN conda install -c bioconda kraken2
 WORKDIR /kraken_db
 
 # minikraken DB kraken2 - refseq bacteria, archaea, and viral libraries
-RUN mkdir minikraken2_v1_8GB/ && cd minikraken2_v1_8GB/ && \
-    wget ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v1_8GB_201904_UPDATE.tgz && \
+RUN wget ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v1_8GB_201904_UPDATE.tgz && \
     tar xf minikraken2_v1_8GB_201904_UPDATE.tgz && rm minikraken2_v1_8GB_201904_UPDATE.tgz
 
 ENV KRAKEN2_DB_PATH="/kraken_db:${KRAKEN2_DB_PATH}"
