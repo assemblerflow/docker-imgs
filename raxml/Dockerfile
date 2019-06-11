@@ -21,3 +21,7 @@ RUN cd standard-RAxML-8.2.11 && make -f Makefile.SSE3.PTHREADS.gcc
 RUN ln -s /NGStools/standard-RAxML-8.2.11/raxmlHPC-PTHREADS-SSE3 /usr/local/bin/raxmlHPC
 
 ENV PATH="/NGStools/standard-RAxML-8.2.11:${PATH}"
+
+RUN apt-get install -y python3-pip
+
+RUN pip3 install dendropy
