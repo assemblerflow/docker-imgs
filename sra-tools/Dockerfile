@@ -25,12 +25,12 @@ ENV PATH="/ngstools/bin/pigz-2.4/:$PATH"
 # Install sra-tools
 WORKDIR /ngstools/bin/
 
-RUN wget http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.9.1-1/sratoolkit.2.9.1-1-ubuntu64.tar.gz
+RUN wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.9.6-1/sratoolkit.2.9.6-1-ubuntu64.tar.gz
 
-RUN tar xvzf sratoolkit.2.9.1-1-ubuntu64.tar.gz
+RUN tar xvzf sratoolkit.2.9.6-1-ubuntu64.tar.gz
 
 # Remove gz file no longer needed
-RUN rm sratoolkit.2.9.1-1-ubuntu64.tar.gz
+RUN rm sratoolkit.2.9.6-1-ubuntu64.tar.gz
 
 # add all binaries to the path
-ENV PATH="/ngstools/bin/sratoolkit.2.9.1-1-ubuntu64/bin:$PATH"
+ENV PATH="/ngstools/bin/sratoolkit.2.9.6-1-ubuntu64/bin:$PATH"
