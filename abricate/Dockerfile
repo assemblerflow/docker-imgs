@@ -1,6 +1,6 @@
 # DOCKERFILE for abricate https://github.com/tseemann/abricate
 FROM ubuntu:16.04
-MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt; Tiago F. Jesus, tiagojesus@medicina.ulisboa.pt
+MAINTAINER Diogo N. Silva, diogosilva@medicina.ulisboa.pt; Tiago F. Jesus, tiagojesus@medicina.ulisboa.pt; C I Mendes, cimendes@medicina.ulisboa.pt
 
 RUN apt-get update && apt-get -y install \
 	bzip2 \
